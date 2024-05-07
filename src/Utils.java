@@ -71,4 +71,72 @@ public class Utils {
         gotoXY(x, y);
         System.out.print(text);
     }
+
+    /**
+     * Evalua una expresion aritmetica simple
+     * en formato String y devolver el resultado
+     * como un double.
+     * 
+     * @implNote <p>Esta funcion es experimental</p>
+     * 
+     * @param exp
+     * @return
+     */
+    public static double eval(String exp) {
+        exp = exp.replaceAll(" ", "");  // Eliminar los espacios
+
+        // Variables
+        int num1 = 0;
+        int num2 = 0;
+        char op = ' ';
+
+        // Encontrar el operador y los valores numericos
+        for (int i = 0; i < exp.length(); i++) {
+            if (exp.charAt(i) == '+' || exp.charAt(i) == '-' || exp.charAt(i) == '*' || exp.charAt(i) == '/') {
+                op = exp.charAt(i);
+
+                num1 = Integer.parseInt(exp.substring(0, i));
+                num2 = Integer.parseInt(exp.substring(i + 1));
+                break;
+            }
+        }
+
+        // operaciones aritmeticas simples
+        if(op == '+') {
+            // Suma
+            return num1 + num2;
+        }
+        else if(op == '-') {
+            // Resta
+            return num1 - num2;
+        }
+        else if(op == '*') {
+            // Multiplicacion
+            return num1 * num2;
+        }
+        else if(op == '/') {
+            // Division
+            try {
+                return num1 / num2;
+            } catch (Exception e) {
+                System.err.println(e.getClass() + " : " + e.getMessage());
+            }
+            
+        }
+        else if(op == '%') {
+            // Modulo o resiuo
+            try {
+                return num1 % num2;
+            } catch (Exception e) {
+                System.err.println(e.getClass() + " : " + e.getMessage());
+            }
+        }
+        else {
+            // caso invalido
+            System.out.println("Operador no válido");
+            return 0.0;
+        }
+
+        return 0.0;
+    }
 }
